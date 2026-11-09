@@ -1,0 +1,56 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens: "federal briefing book".
+ * Marble page, navy ink, brass for the player's levers only.
+ * Party colors are DATA colors (validated for CVD with the dataviz validator);
+ * they are never used for chrome or text.
+ */
+/* `static`: always emit these variables, even ones only used from inline styles (data colors). */
+@theme static {
+  --font-sans: 'Public Sans', 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  --font-serif: 'Merriweather', 'Georgia', 'Times New Roman', serif;
+
+  --color-marble: #f2f4f7;
+  --color-panel: #fbfcfd;
+  --color-rule: #d3d9e2;
+  --color-ink: #14213d;
+  --color-ink-2: #46536b;
+  --color-ink-3: #5b6779; /* ≥ 4.5:1 on every surface (WCAG AA) */
+  --color-brass: #8a6b23; /* white text 5:1 */
+  --color-brass-dark: #6f561c;
+  --color-brass-tint: #f3ead6;
+
+  /* Data colors: GOP / Dem / third parties */
+  --color-gop: #b8322b;
+  --color-dem: #2559a7;
+  --color-third: #3e8a5a;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: var(--color-marble);
+    font-feature-settings: 'tnum' 1;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brass);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* The one orchestrated moment: a new crisis lands on the desk. */
+@keyframes crisis-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.crisis-in {
+  animation: crisis-in 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
